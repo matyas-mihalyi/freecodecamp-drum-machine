@@ -79,22 +79,26 @@ function App() {
 
 
   return (
-    <div id="drum-machine" onKeyDown={handleKeyDown} className="container-fluid d-flex flex-column">
-      <div className="row min-vh-10">
-        <div id="display" className="col">{display}</div>
-      </div>
-      <div className="row">
-        <div id="keyboard" className="col container-f">
-          <div className="row">
-          {sounds.map((sound,i) =>
-            <div className="drum-pad btn" id={sound.desc} title={sound.desc} onClick={handleClick} key={sound.desc}>
-              {sound.key}
-              <audio src={sound.audio} className="clip" id={sound.key} onEnded={removeDisplay} preload="auto"></audio>
+    <div className="row justify-content-center align-items-center min-vh-100">
+      
+      <div id="drum-machine" onKeyDown={handleKeyDown} className="col-lg-4 col-sm-8 px-0">
+        <div className="display-wrapper bg-primary">
+          <h5 id="display" className="">{display}</h5>
+        </div>
+        <div id="keyboard" className="">
+          <div className="row g-1">
+            {sounds.map((sound,i) =>
+            <div className="drum-pad-wrapper col-4">
+              <div className="drum-pad text-center py-5" id={sound.desc} title={sound.desc} onClick={handleClick} key={sound.desc}>
+                {sound.key}
+                <audio src={sound.audio} className="clip" id={sound.key} onEnded={removeDisplay} preload="auto"></audio>
+              </div>
             </div>
-          )}
+            )}
           </div>
         </div>
       </div>
+
     </div>
   );
 }
