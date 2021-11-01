@@ -68,9 +68,15 @@ function App() {
   };
 
   function playAudio (key) {
+    const sound = sounds.find(sound => sound.key === key);
+    setDisplay(sound.desc);
+    document.querySelector(`div[title="${sound.desc}"]`).classList.remove("drum-pad-push");
+    document.querySelector(`div[title="${sound.desc}"]`).classList.add("drum-pad-push");
+    setTimeout(()=> {
+      document.querySelector(`div[title="${sound.desc}"]`).classList.remove("drum-pad-push");
+    }, 100)
     document.querySelector(`audio#${key}`).currentTime = 0;
     document.querySelector(`audio#${key}`).play();
-    setDisplay(sounds.find(sound => sound.key === key).desc)
   };
   
   function removeDisplay () {
@@ -81,12 +87,12 @@ function App() {
   return (
     <div className="row justify-content-center align-items-center min-vh-100">
       
-      <div id="drum-machine" onKeyDown={handleKeyDown} className="col-lg-4 col-sm-8 px-0">
-        <div className="display-wrapper bg-primary">
+      <div id="drum-machine" onKeyDown={handleKeyDown} className="col-lg-4 col-sm-8 p-4 rounded">
+        <div className="display-wrapper mb-4 px-4 vh-6 d-flex align-items-center rounded">
           <h5 id="display" className="">{display}</h5>
         </div>
         <div id="keyboard" className="">
-          <div className="row g-1">
+          <div className="row g-2">
             {sounds.map((sound,i) =>
             <div className="drum-pad-wrapper col-4">
               <div className="drum-pad text-center py-5" id={sound.desc} title={sound.desc} onClick={handleClick} key={sound.desc}>
